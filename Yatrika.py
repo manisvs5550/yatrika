@@ -7,7 +7,17 @@ import re
 from db import fetch_user_by_username, get_all_users, insert_user, update_user_role, delete_user, get_all_parties, insert_party, update_party, delete_party, get_all_users, get_party_by_user, get_tour_entries_by_user, insert_tour_entry, check_duplicate_tour_entry,get_pending_tour_entries_for_leader, update_tour_status,get_all_tour_entries, get_user_list, get_tour_entries_by_party_numbers, get_party_by_user
 
 from datetime import datetime, timedelta
+import mysql.connector
+import os
 
+def get_db_connection():
+    return mysql.connector.connect(
+        host=os.environ.get("MYSQLHOST", "your_mysql_host_from_railway"),
+        user=os.environ.get("MYSQLUSER", "your_user"),
+        password=os.environ.get("MYSQLPASSWORD", "your_password"),
+        database=os.environ.get("MYSQLDATABASE", "your_database"),
+        port=int(os.environ.get("MYSQLPORT", 3306))
+    )
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'
