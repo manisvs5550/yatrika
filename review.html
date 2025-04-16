@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Approve Tour Diaries - Yatrika (यात्रिका)</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h3 class="text-center mb-4">Yatrika (यात्रिका) - Approve Tour Diaries</h3>
+
+        {% if message %}
+        <div class="alert alert-info">{{ message }}</div>
+        {% endif %}
+
+        {% if entries %}
+        <table class="table table-bordered table-striped">
+            <thead class="table-light">
+                <tr>
+                    <th>Date</th>
+                    <th>Office Name</th>
+                    <th>Work Done</th>
+                    <th>Submitted By</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in entries %}
+                <tr>
+                    <td>{{ entry.start_date }}</td>
+                    <td>{{ entry.office_name }}</td>
+                    <td>{{ entry.work_done }}</td>
+                    <td>{{ entry.submitted_by }}</td>
+                    <td>
+                        <form method="POST" class="d-flex gap-1">
+                            <input type="hidden" name="index" value="{{ entry.index }}">
+                            <button name="action" value="Approve" class="btn btn-success btn-sm">Approve</button>
+                            <button name="action" value="Reject" class="btn btn-danger btn-sm">Reject</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <div class="alert alert-warning text-center">No pending tour diary entries to review.</div>
+        {% endif %}
+
+        <a href="/menu" class="btn btn-secondary mt-3 float-end">Return to Main Menu</a>
+    </div>
+</div>
+</body>
+</html>
